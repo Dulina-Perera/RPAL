@@ -1,0 +1,5 @@
+let f g = g 3 
+in
+let h x = x + 1
+in
+Print(f h)
