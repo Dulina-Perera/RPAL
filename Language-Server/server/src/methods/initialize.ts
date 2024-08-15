@@ -12,7 +12,7 @@ interface InitializeResult {
 
 export const initialize = (message: RequestMessage): InitializeResult => {
 	return {
-		capabilities: {},
+		capabilities: { completionProvider: {} },
 		serverInfo: {
 			name: "RPAL Language Server",
 			version: "0.1.0"

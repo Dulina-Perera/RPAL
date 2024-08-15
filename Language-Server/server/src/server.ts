@@ -1,5 +1,7 @@
+import { completion } from "./methods/textDocument/completion";
 import { initialize } from "./methods/initialize";
 import log from "./log";
+import { text } from "stream/consumers";
 
 type RequestMethod = (message: RequestMessage) => unknown;
 
@@ -14,7 +16,8 @@ export interface RequestMessage extends Message {
 }
 
 const methodLookup: Record<string, RequestMethod> = {
-	initialize
+	initialize,
+	"textDocument/completion": completion
 };
 
 let buffer: string = '';
@@ -49,9 +52,9 @@ process.stdin.on('data', (chunk) => {
 });
 
 const respond = (id: RequestMessage['id'], result: unknown) => {
-	const message: string = JSON.stringify({ id, result });
-
+	const message: string = JSON.stringify({ id, result }, null, 2);
 	const length: number = Buffer.byteLength(message, 'utf8');
+
 	const header: string = `Content-Length: ${length}\r\n\r\n`;
 
 	log.write(header + message);
