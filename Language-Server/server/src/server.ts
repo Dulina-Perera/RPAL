@@ -1,6 +1,8 @@
 import { initialize } from "./methods/initialize";
 import log from "./log";
 
+type RequestMethod = (message: RequestMessage) => unknown;
+
 interface Message {
 	jsonrpc: string;
 }
@@ -10,6 +12,10 @@ export interface RequestMessage extends Message {
 	method: string;
 	params?: unknown[] | object;
 }
+
+const methodLookup: Record<string, RequestMethod> = {
+	initialize
+};
 
 let buffer: string = '';
 process.stdin.on('data', (chunk) => {
@@ -31,8 +37,23 @@ process.stdin.on('data', (chunk) => {
 				const message: RequestMessage = JSON.parse(rawMessage);
 				log.write({ id: message.id, method:message.method });
 
+				const method: RequestMethod = methodLookup[message.method];
+				if (method) {
+					respond(message.id, method(message));
+				}
+
 				buffer = buffer.slice(messageStart + contentLength);
 			}
 		}
 	}
 });
+
+const respond = (id: RequestMessage['id'], result: unknown) => {
+	const message: string = JSON.stringify({ id, result });
+
+	const length: number = Buffer.byteLength(message, 'utf8');
+	const header: string = `Content-Length: ${length}\r\n\r\n`;
+
+	log.write(header + message);
+	process.stdout.write(header + message);
+}
