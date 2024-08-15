@@ -1,7 +1,6 @@
 import { completion } from "./methods/textDocument/completion";
 import { initialize } from "./methods/initialize";
 import log from "./log";
-import { text } from "stream/consumers";
 
 type RequestMethod = (message: RequestMessage) => unknown;
 
