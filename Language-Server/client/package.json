@@ -1,21 +1,22 @@
 {
-  "name": "REPLACE_ME",
-  "description": "REPLACE_ME",
-  "author": "REPLACE_ME",
-  "license": "MIT",
-  "version": "0.0.1",
-  "publisher": "REPLACE_ME",
-  "repository": {
-    "type": "git",
-    "url": "REPLACE_ME"
-  },
-  "engines": {
-    "vscode": "^1.75.0"
-  },
-  "dependencies": {
-    "vscode-languageclient": "^8.1.0"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.81.0"
-  }
+	"name": "rpal-language-server-client",
+	"description": "Language support for RPAL (Client)",
+	"author": "Dulina Perera",
+	"license": "MIT",
+	"version": "0.1.0",
+	"publisher": "Dulina-Perera",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Dulina-Perera/RPAL"
+	},
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.75.1",
+		"@vscode/test-electron": "^2.3.9"
+	}
 }
